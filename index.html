@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Feliz Cumple, Andre 💖</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap"
+          rel="stylesheet">
+    <style>
+        :root {
+            --bg1: #ffdee9;
+            --bg2: #b5fffc;
+            --glass: rgba(255, 255, 255, 0.55);
+            --border: rgba(255, 255, 255, 0.7);
+            --accent: #ff4d6d;
+            --ink: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            color: var(--ink);
+            background: linear-gradient(135deg, var(--bg1), var(--bg2));
+            overflow-x: hidden;
+        }
+
+        /* floating hearts */
+        .hearts {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hearts span {
+            position: absolute;
+            font-size: 18px;
+            animation: float 12s linear infinite;
+            opacity: .18;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(.8) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(360deg);
+            }
+        }
+
+        .wrap {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            place-items: center;
+            padding: clamp(16px, 3vw, 32px);
+        }
+
+        .card {
+            width: min(1000px, 94vw);
+            backdrop-filter: blur(6px);
+            background: var(--glass);
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+            border-radius: 24px;
+            padding: clamp(18px, 2.5vw, 28px);
+        }
+
+        .title {
+            font-family: "Great Vibes", cursive;
+            font-size: clamp(36px, 6vw, 64px);
+            text-align: center;
+            margin: 8px 0 6px;
+            color: var(--accent);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: clamp(14px, 2.2vw, 18px);
+            opacity: .8;
+            margin-bottom: 18px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 22px;
+        }
+
+        @media (min-width: 900px) {
+            .grid {
+                grid-template-columns: 1.1fr .9fr;
+                gap: 26px;
+            }
+        }
+
+        .letter {
+            background: rgba(255, 255, 255, .78);
+            border: 1px dashed #ffd6de;
+            border-radius: 18px;
+            padding: clamp(14px, 2.2vw, 22px);
+            line-height: 1.75;
+            font-size: clamp(14px, 2.1vw, 18px);
+            position: relative;
+        }
+
+        .letter:before {
+            content: "💌";
+            position: absolute;
+            right: 14px;
+            top: -18px;
+            font-size: 28px;
+        }
+
+        .type {
+            white-space: pre-wrap;
+        }
+
+        .photo {
+            display: grid;
+            place-items: center;
+        }
+
+        .photo figure {
+            margin: 0;
+            width: 100%;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .12);
+            background: #fff;
+        }
+
+        .photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 14px;
+        }
+
+        .btn {
+            border: 0;
+            cursor: pointer;
+            padding: 12px 18px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 8px 22px rgba(255, 77, 109, .35);
+            transition: transform .08s ease, filter .2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+        }
+
+        .note {
+            text-align: center;
+            font-size: 12px;
+            opacity: .65;
+            margin-top: 6px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 18px;
+            opacity: .7;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+<main class="wrap">
+    <section class="card">
+        <h1 class="title">Feliz Cumple, Andre ✨</h1>
+        <p class="subtitle">De Andres, con todo el amor 💖</p>
+        <div class="grid">
+            <article class="letter">
+                <div class="type" id="type"></div>
+            </article>
+            <aside class="photo">
+                <figure>
+                    <!-- Reemplazar src por data-uri o ruta de imagen si se edita fuera de esta vista -->
+                    <img alt="Nuestros recuerdos" src="img/foto.jpg">
+                </figure>
+                <div class="actions">
+                    <a class="btn" id="shareWA">Compartir por WhatsApp</a>
+                    <a class="btn" id="downloadBtn">Descargar esta tarjeta</a>
+                </div>
+                <p class="note">Si el audio no se reproduce automáticamente, toca el botón ▶️ en tu reproductor.</p>
+            </aside>
+        </div>
+    </section>
+</main>
+<footer>Hecho con amor 💝</footer>
+
+<script>
+    // Typewriter effect
+    const text = `¡Feliz cumpleaños, Andre!
+Mi querida Andre,
+
+Hoy es un día especial porque celebramos el día en que llegaste a este mundo para hacerlo más hermoso. Desde que te conocí, mi vida se llenó de luz y de un amor que no sabía que era posible. Cada momento a tu lado es un regalo, una aventura que atesoro con todo mi ser.
+
+Tu sonrisa, tu ternura, tu inteligencia y la forma en que me miras son las cosas que me enamoran cada día. Eres la persona que siempre soñé y mi más grande apoyo. Gracias por ser tú, por compartir tu vida conmigo y por llenar mis días de tanta felicidad.
+
+En este nuevo año de tu vida, deseo que se cumplan todos tus sueños y que la felicidad te acompañe en cada paso. Quiero que sepas que siempre estaré a tu lado, para celebrar tus triunfos, apoyarte en tus desafíos y amarte incondicionalmente.
+
+Gracias por ser mi compañera, mi mejor amiga y el amor de mi vida.
+
+Feliz cumpleaños, Andre. Te quiero con todo mi corazón.
+
+Con todo mi cariño,
+
+Andres.`;
+    const el = document.getElementById('type');
+    let i = 0;
+
+    function type() {
+        if (i < text.length) {
+            el.textContent += text.charAt(i);
+            i++;
+            requestAnimationFrame(type);
+        }
+    }
+
+    setTimeout(type, 400);
+
+    // Floating hearts
+    const hearts = document.getElementById('hearts');
+    const heartChars = ["❤", "💗", "💖", "💘", "💝", "💕"];
+    for (let i = 0; i < 40; i++) {
+        const s = document.createElement('span');
+        s.textContent = heartChars[i % heartChars.length];
+        s.style.left = Math.random() * 100 + 'vw';
+        s.style.animationDelay = (Math.random() * 6) + 's';
+        s.style.animationDuration = (10 + Math.random() * 10) + 's';
+        s.style.fontSize = (14 + Math.random() * 28) + 'px';
+        hearts.appendChild(s);
+    }
+
+    // WhatsApp share
+    document.getElementById('shareWA').addEventListener('click', () => {
+        const msg = "💖 Feliz cumpleaños, Andre 💖%0A%0A" + encodeURIComponent(text);
+        const url = "https://wa.me/?text=" + msg;
+        window.open(url, '_blank');
+    });
+
+    // Download current page as file
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+        const html = document.documentElement.outerHTML.replace('{{PEGA_AQUI_TU_BASE64}}', '');
+        const blob = new Blob([html], {type: 'text/html'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'FelizCumple_Andre.html';
+        document.body.appendChild(a);
+        a.click();
+        URL.revokeObjectURL(a.href);
+        a.remove();
+    });
+</script>
+</body>
+</html>
