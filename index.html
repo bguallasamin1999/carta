@@ -200,19 +200,25 @@
             </article>
             <aside class="photo">
                 <figure>
-                    <!-- Reemplazar src por data-uri o ruta de imagen si se edita fuera de esta vista -->
                     <img alt="Nuestros recuerdos" src="img/foto.jpg">
                 </figure>
                 <div class="actions">
                     <a class="btn" id="shareWA">Compartir por WhatsApp</a>
                     <a class="btn" id="downloadBtn">Descargar esta tarjeta</a>
+                    <button id="musicBtn" class="btn">🎵 Reproducir música</button>
                 </div>
-                <p class="note">Si el audio no se reproduce automáticamente, toca el botón ▶️ en tu reproductor.</p>
+                <p class="note">Si el audio no se reproduce automáticamente, toca el botón ▶️ para escuchar la
+                    música.</p>
             </aside>
         </div>
     </section>
 </main>
 <footer>Hecho con amor 💝</footer>
+
+<audio id="bgmusic" preload="auto" playsinline loop>
+    <source src="media/cumple.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+</audio>
 
 <script>
     // Typewriter effect
@@ -265,9 +271,7 @@ Andres.`;
         window.open(url, '_blank');
     });
 
-    // Download current page as file
     document.getElementById('downloadBtn').addEventListener('click', () => {
-        const html = document.documentElement.outerHTML.replace('{{PEGA_AQUI_TU_BASE64}}', '');
         const blob = new Blob([html], {type: 'text/html'});
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
@@ -276,6 +280,28 @@ Andres.`;
         a.click();
         URL.revokeObjectURL(a.href);
         a.remove();
+    });
+
+    // Music button
+    const audio = document.getElementById('bgmusic');
+    const btn = document.getElementById('musicBtn');
+    audio.addEventListener('error', () => {
+        alert('No pude cargar el audio. Revisa la ruta: ' + audio.currentSrc);
+    });
+    btn.addEventListener('click', async () => {
+        try {
+            if (audio.paused) {
+                audio.currentTime = 0;
+                await audio.play();
+                btn.textContent = '⏸️ Pausar música';
+            } else {
+                audio.pause();
+                btn.textContent = '🎵 Reproducir música';
+            }
+        } catch (err) {
+            alert('No pude reproducir el audio.');
+            console.error(err);
+        }
     });
 </script>
 </body>
